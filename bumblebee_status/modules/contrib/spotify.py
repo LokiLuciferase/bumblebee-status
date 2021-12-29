@@ -110,6 +110,10 @@ class Module(core.module.Module):
     def hidden(self):
         return self.string_song == ""
 
+    @core.decorators.scrollable
+    def __get_song_scrollable(self, widget):
+        return self.__song
+
     def __get_song(self):
         bus = self.__bus
         if self.__bus_name == "spotifyd":
@@ -156,7 +160,7 @@ class Module(core.module.Module):
                         widget.set("state", "paused")
                 elif widget.name == "spotify.song":
                     widget.set("state", "song")
-                    widget.full_text(self.__song)
+                    widget.full_text(self.__get_song_scrollable)
 
         except Exception as e:
             self.__song = ""
